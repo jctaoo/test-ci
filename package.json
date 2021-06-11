@@ -1,0 +1,26 @@
+{
+  "name": "test-travis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "gh-pages": "^3.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node ./test.test.js",
+    "doc:publish": "gh-pages -d ./docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jctaoo/test-travis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jctaoo/test-travis/issues"
+  },
+  "homepage": "https://github.com/jctaoo/test-travis#readme"
+}
