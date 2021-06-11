@@ -15,9 +15,16 @@ jobs:
   - stage: Tests
     name: Unit Tests
     script: pnpm run test
-  - stage: Docs
-    name: Publish Docs
-    script: pnpm run doc:publish -- -m "[ci skip] Update Docs" -u "jctaoo <jctaoo@outlook.com>"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  target_branch: gh-pages
+  commit_message: "docs(docs): [skip ci] update gh-pages"
+  local_dir: "./docs"
+  on:
+    branch: main
 env:
-  jobs:
+  global:
     secure: lqfPNsrsG2rGrC0Ojxkkn4MI01Tgttc+lsCeMWH886vQsOpxEMRd33le4b63jhoBFVvvF6PhyuTRnOf7vlP1hyKEft7+Y7/Dm1diU0NwAtPNwrU2IPP74wnw11RnCnVsB3hRvjVf7kuT67CA/it76Z8kHbK7QKEwSAq7OTvetn+klxJolnmn2bynuFpPDTczlN2WgFOWamV0cNj1AYfmMtgG8fXUrYiseG4SS4qbxhEavvNA5haa3/1wGMy0MIxvSCxrbHZEeqhPxpkLAR7FecpxmS923xkkWnRuPMr8Qq5GWuzCiYussQT5cGDCryRPo1bYNfj8kqfWs/YiUo5PpoJIP/M2OcN2QbXniH3djuT1KbdDDLHd/wnv+n/n/gxtXUZ37eQahRxs+MI+PcRZ5hptbEv8dkk0p9ZJuOXOzQ6/G3zp5N8STjOTL9rA1mG3+ex+feD/qJYME5Lff7vX8fZWX6YX+08jzkfg5xwjR9UG0871SRxGhpaaKPG9nW6SAa9aOAEapH1ixPMFh5Rb5gbKN7KV+ZIQ9Qy84JlE3/6yCtyb4r7rbucnoNtc6JMoC5KK4HwsPbm58rYDXyIQ++5yZEFJJ2keCzSIK9qte6wxOwE6/Qvuh+HhHhBw6MDj0V2sMezffSghbapr3bOS5usBjfns/eBhp8QI5N2MZdw=
