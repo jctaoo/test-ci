@@ -55,7 +55,7 @@ jobs:
       #     command: |
       #       gh-pages -d docs -m "docs(docs): [skip ci] update gh-pages" -b gh-pages
       - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
+          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - ~/.npm
 
