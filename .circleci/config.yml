@@ -1,0 +1,72 @@
+version: 2.1
+
+executors:
+  linux:
+    docker:
+      - image: cimg/base:2020.01
+
+orbs:
+  node: circleci/node@2.0.0
+
+jobs:
+  test:
+    parameters:
+      node-version:
+        type: string
+    executor: linux
+    steps:
+      - checkout
+      - node/install:
+          node-version: << parameters.node-version >>
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
+      - run:
+          name: Setup pnpm
+          command: |
+            npm install --prefix=$HOME/.local --global pnpm
+            pnpm config set store-dir ~/.pnpm-store
+      - run: 
+          name: Install packages
+          command: pnpm install
+      - run:
+          name: Run Unit Tests
+          command: pnpm run test
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
+          paths:
+            - ~/.pnpm-store
+      - run:
+          name: Run Tests
+          command: npm run test
+  deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+      - run:
+          name: Install gh-pages
+          command: npm install -g --silent gh-pages
+      # - run:
+      #     name: Publish docs
+      #     command: |
+      #       gh-pages -d docs -m "docs(docs): [skip ci] update gh-pages" -b gh-pages
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+          paths:
+            - ~/.npm
+
+
+workflows:
+  orb-free-workflow:
+    jobs:
+      - test:
+          matrix:
+            parameters:
+              node-version: ["16.0.0"]
+      - deploy:
+          requires:
+            - test
