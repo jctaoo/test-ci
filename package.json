@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "dependencies": {
-    "koa": "^2.13.1"
+    "@vercel/node": "^1.11.0"
   },
   "scripts": {
     "test": "node ./test.test.js"
