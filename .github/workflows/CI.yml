@@ -52,7 +52,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy docs and applications
-    needs: build
+    needs: test
 
     steps:
       - uses: actions/checkout@v2
