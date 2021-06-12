@@ -4,13 +4,10 @@
   "description": "",
   "main": "test.js",
   "dependencies": {
-    "express": "^4.17.1",
-    "gh-pages": "^3.2.0"
+    "koa": "^2.13.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "node ./test.test.js",
-    "doc:publish": "gh-pages -d ./docs"
+    "test": "node ./test.test.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +15,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jctaoo/test-travis/issues"
   },
