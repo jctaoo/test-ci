@@ -64,9 +64,15 @@ workflows:
   orb-free-workflow:
     jobs:
       - test:
+          branches:
+            ignore:
+              - gh-pages
           matrix:
             parameters:
               node-version: ["16.0.0"]
       - deploy:
+          branches:
+            ignore:
+              - gh-pages
           requires:
             - test
