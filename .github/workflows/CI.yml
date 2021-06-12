@@ -56,7 +56,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: publish docs
+      - name: Publish docs
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
@@ -64,3 +64,12 @@ jobs:
           commit_message: "docs(docs): [skip ci] update gh-pages"
           publish_branch: gh-pages
           enable_jekyll: false
+      
+      - name: Publish application
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          alias-domains: |
+            ga-test-travis.vercel.app
