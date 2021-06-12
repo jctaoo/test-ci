@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Setup pnpm
           command: |
-            npm install -g pnpm
+            npm install --prefix=$HOME/.local --global pnpm
             pnpm config set store-dir ~/.pnpm-store
       - run: 
           name: Install packages
