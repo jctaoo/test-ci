@@ -12,20 +12,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '16' ]
+    name: Run tests on Node ${{ matrix.node }}
 
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        id: cache
+      - name: Setup node
+        uses: actions/setup-node@v2
         with:
-          path: '**/**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          check-latest: true
+          node-version: ${{ matrix.node }}
 
       - name: Cache pnpm modules
         uses: actions/cache@v2
@@ -50,7 +48,13 @@ jobs:
       - name: Run unit tests
         run: |
           pnpm run test
+  
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy docs and applications
+    needs: build
 
+    steps:
       - name: publish docs
         uses: peaceiris/actions-gh-pages@v3
         with:
